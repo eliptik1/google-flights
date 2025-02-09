@@ -9,16 +9,23 @@ import {
   Map,
   Calendar,
   ArrowLeftRight,
-  Search,
   ChevronLeft,
   ChevronRight,
+  Search,
+  PlaneTakeoff,
+  MapPin,
 } from "lucide-react";
 import FlightResults from "./FlightResults";
 import testData from "../data/testData.json";
+import DropdownSelect from "./ui/DropdownSelect";
+import PassengerDropdown from "./ui/PassengerDropdown";
 
 export const FlightSearch = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
 
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
@@ -109,6 +116,80 @@ export const FlightSearch = () => {
 
   return (
     <>
+      <div className="max-w-5xl mx-auto mb-16">
+        <div className="relative bg-white rounded-xl [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)] max-md:p-2 p-6 pb-12 max-md:pb-8">
+          <div className="flex flex-nowrap gap-4 mb-6 z-50 relative">
+            {/* Trip Type Selector */}
+            <DropdownSelect type={"trip"} />
+
+            {/* Passenger Count */}
+            <PassengerDropdown />
+
+            {/* Class Selector */}
+            <DropdownSelect type={"class"} />
+          </div>
+
+          <div className="flex w-full gap-4 max-lg:flex-wrap">
+            <div className="flex w-full gap-3 relative">
+              {/* From Input */}
+              <div className="h-12 bg-white w-3 absolute left-1/2 -translate-x-1/2 bottom-0 z-10 "></div>
+              <div className="relative w-full ">
+                <div className="flex w-full lg:max-w-[270px] items-center border border-[#cfcfcf] rounded-md p-3 group hover:border-[#9aa0a6]">
+                  <PlaneTakeoff className="w-5 h-5 text-gray-500 mr-2" />
+                  <input
+                    type="text"
+                    placeholder="Where from?"
+                    className="w-full outline-none placeholder-gray-500 "
+                  />
+                  <div className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white border border-[#cfcfcf] group-hover:border-[#9aa0a6]  rounded-full p-4 "></div>
+                </div>
+              </div>
+
+              {/* Swap Button */}
+              <div className="absolute flex items-center right-1/2 top-1/2 translate-x-1/2 z-20 -translate-y-1/2">
+                <button className="bg-white rounded-full p-[6px] ">
+                  <ArrowLeftRight className="w-5 h-5 text-gray-700" />
+                </button>
+              </div>
+              {/* To Input */}
+              <div className="relative w-full">
+                <div className="flex w-full lg:max-w-[270px]  items-center border border-[#cfcfcf] rounded-md p-3 group hover:border-[#9aa0a6] ">
+                  <MapPin className="w-5 h-5 text-gray-500 mr-2" />
+                  <input
+                    type="text"
+                    placeholder="Where to?"
+                    className="w-full outline-none placeholder-gray-500 "
+                  />
+                  <div className="absolute -left-5 top-1/2 -translate-y-1/2 bg-white border border-[#cfcfcf] group-hover:border-[#9aa0a6] rounded-full p-4 "></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Date Selector */}
+            <div className="relative  w-full">
+              <div className="flex  w-full items-center justify-between border border-[#cfcfcf] rounded-md p-3 hover:border-[#9aa0a6] ">
+                <div className="flex items-center">
+                  <Calendar className="w-5 h-5 text-gray-400 mr-2" />
+                  <span>Sun, Feb 9</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <ChevronLeft className="w-5 h-5 text-gray-400" />
+                  <ChevronRight className="w-5 h-5 text-gray-400" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Search Button */}
+          <div className="w-full flex justify-center mt-8 absolute bottom-0 left-1/2 -translate-x-1/2  translate-y-1/2 ">
+            <button className="bg-[#1a73e8] text-white font-semibold px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#1b66c9] transition-colors [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
+              <Search className="w-5 h-5 " />
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className="space-y-3">
         <h1>Flight Search</h1>
         <div>
@@ -173,87 +254,6 @@ export const FlightSearch = () => {
             </li>
           ))} */}
           </ul>
-        </div>
-      </div>
-
-      <div className="max-w-5xl mx-auto p-8">
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <div className="flex flex-wrap gap-4 mb-6">
-            {/* Trip Type Selector */}
-            <div className="flex items-center gap-2 cursor-pointer">
-              <ArrowRight className="w-4 h-4" />
-              <span>One way</span>
-              <ChevronDown className="w-4 h-4" />
-            </div>
-
-            {/* Passenger Count */}
-            <div className="flex items-center gap-2 cursor-pointer">
-              <Users className="w-4 h-4" />
-              <span>1</span>
-              <ChevronDown className="w-4 h-4" />
-            </div>
-
-            {/* Class Selector */}
-            <div className="flex items-center gap-2 cursor-pointer">
-              <span>Economy</span>
-              <ChevronDown className="w-4 h-4" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* From Input */}
-            <div className="relative">
-              <div className="flex items-center border rounded-lg p-3 hover:border-blue-500 cursor-pointer">
-                <Map className="w-5 h-5 text-gray-400 mr-2" />
-                <input
-                  type="text"
-                  placeholder="Where from?"
-                  className="w-full outline-none placeholder-gray-500"
-                />
-              </div>
-            </div>
-
-            {/* Swap Button */}
-            <div className="absolute left-1/2 top-1/2 md:relative md:left-auto md:top-auto z-10 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0">
-              <button className="bg-white rounded-full p-2 shadow-md hover:shadow-lg absolute md:relative left-0 top-0 md:top-1/2 md:-translate-y-1/2">
-                <ArrowLeftRight className="w-5 h-5 text-blue-500" />
-              </button>
-            </div>
-
-            {/* To Input */}
-            <div className="relative">
-              <div className="flex items-center border rounded-lg p-3 hover:border-blue-500 cursor-pointer">
-                <Map className="w-5 h-5 text-gray-400 mr-2" />
-                <input
-                  type="text"
-                  placeholder="Where to?"
-                  className="w-full outline-none placeholder-gray-500"
-                />
-              </div>
-            </div>
-
-            {/* Date Selector */}
-            <div className="relative">
-              <div className="flex items-center justify-between border rounded-lg p-3 hover:border-blue-500 cursor-pointer">
-                <div className="flex items-center">
-                  <Calendar className="w-5 h-5 text-gray-400 mr-2" />
-                  <span>Sun, Feb 9</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <ChevronLeft className="w-5 h-5 text-gray-400" />
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Search Button */}
-          <div className="flex justify-center mt-8">
-            <button className="bg-blue-500 text-white px-8 py-3 rounded-full flex items-center gap-2 hover:bg-blue-600 transition-colors">
-              <Search className="w-5 h-5" />
-              Search
-            </button>
-          </div>
         </div>
       </div>
     </>
