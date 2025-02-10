@@ -19,6 +19,7 @@ import FlightResults from "./FlightResults";
 import testData from "../data/testData.json";
 import DropdownSelect from "./ui/DropdownSelect";
 import PassengerDropdown from "./ui/PassengerDropdown";
+import DatePicker from "./ui/DatePicker";
 
 export const FlightSearch = () => {
   const [from, setFrom] = useState("");
@@ -166,26 +167,19 @@ export const FlightSearch = () => {
             </div>
 
             {/* Date Selector */}
-            <div className="relative  w-full">
-              <div className="flex  w-full items-center justify-between border border-[#cfcfcf] rounded-md p-3 hover:border-[#9aa0a6] ">
-                <div className="flex items-center">
-                  <Calendar className="w-5 h-5 text-gray-400 mr-2" />
-                  <span>Sun, Feb 9</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <ChevronLeft className="w-5 h-5 text-gray-400" />
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
-                </div>
-              </div>
+            <div className="lg:relative w-full">
+              <DatePicker />
             </div>
           </div>
 
           {/* Search Button */}
-          <div className="w-full flex justify-center mt-8 absolute bottom-0 left-1/2 -translate-x-1/2  translate-y-1/2 ">
-            <button className="bg-[#1a73e8] text-white font-semibold px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#1b66c9] transition-colors [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
-              <Search className="w-5 h-5 " />
-              Search
-            </button>
+          <div>
+            <div className="w-full flex justify-center mt-8 absolute bottom-0 left-1/2 -translate-x-1/2  translate-y-1/2 ">
+              <button className="bg-[#1a73e8] text-white font-semibold px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#1b66c9] transition-colors [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
+                <Search className="w-5 h-5 " />
+                Search
+              </button>
+            </div>
           </div>
         </div>
       </div>
