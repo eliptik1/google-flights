@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
 
-const Calendar = () => {
+const DatePicker = ({ setDate }) => {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [selectedDate, setSelectedDate] = useState(today);
@@ -23,6 +23,11 @@ const Calendar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    const formattedDate = formatDateToYYYYMMDD(selectedDate);
+    setDate(formattedDate);
+  }, [selectedDate]);
 
   const months = [
     "January",
@@ -48,6 +53,13 @@ const Calendar = () => {
     { key: "sat", label: "S" },
     { key: "sun", label: "S" },
   ];
+
+  const formatDateToYYYYMMDD = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   const maxDate = new Date(
     today.getFullYear() + 1,
@@ -220,15 +232,15 @@ const Calendar = () => {
   return (
     <div className="" ref={calendarRef}>
       {/* Date Input */}
-      <div className="relative">
+      <div className="relative select-none">
         <input
           type="text"
           readOnly
           value={formatDate(selectedDate)}
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full pl-10 px-4 p-3 border rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full pl-10 px-4 p-3 border border-[#cfcfcf] hover:border-[#9aa0a6] rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <CalendarIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <CalendarIcon className="absolute pointer-events-none left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
         <div className="absolute right-3 flex top-1/2 -translate-y-1/2 items-center gap-1 h-full">
           <button
             onClick={handlePrevDay}
@@ -257,7 +269,7 @@ const Calendar = () => {
 
       {/* Calendar Dropdown */}
       {isOpen && (
-        <div className="max-sm:fixed max-sm:inset-0 absolute z-[100] max-lg:-right-8 max-md:-right-2 right-0 select-none mt-1 bg-white rounded-lg [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
+        <div className="fixed max-sm:inset-0 lg:absolute z-[100] max-lg:-right-8 max-md:left-0 md:right-0 select-none mt-1 bg-white rounded-lg [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
           <div className="sm:hidden flex items-center gap-4 pr-12 justify-center py-3 border-t border-gray-300 ">
             <button onClick={() => setIsOpen(!isOpen)}>
               <ArrowLeft />
@@ -448,4 +460,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default DatePicker;

@@ -5,6 +5,7 @@ import { Users } from "lucide-react";
 import { ArrowLeftRight } from "lucide-react";
 import { Waypoints } from "lucide-react";
 import { MoveRight } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 
 const DROPDOWN_OPTIONS = {
   trip: [
@@ -19,11 +20,20 @@ const DROPDOWN_OPTIONS = {
     { id: 3, name: "Business" },
     { id: 4, name: "First" },
   ],
+
+  sortBy: [
+    { id: 1, name: "Price" },
+    { id: 2, name: "Departure time" },
+    { id: 3, name: "Arrival time" },
+    { id: 4, name: "Duration" },
+    { id: 5, name: "Emissions" },
+  ],
 };
 
 const DEFAULT_VALUES = {
   trip: "One way",
   class: "Economy",
+  sortBy: "Price",
 };
 
 const DropdownSelect = ({ type }) => {
@@ -54,8 +64,12 @@ const DropdownSelect = ({ type }) => {
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 ${
+          className={`flex items-center gap-2 text-base px-3 py-2 rounded-lg transition-colors duration-200 ${
             isOpen ? "bg-[#e8f0fe]" : "bg-white"
+          } ${
+            type === "sortBy"
+              ? "text-[#1a73e8] hover:text-[#1750a8] font-semibold"
+              : ""
           } group`}
         >
           {selectedClass === "Round trip" && (
@@ -64,6 +78,7 @@ const DropdownSelect = ({ type }) => {
           {selectedClass === "One way" && <MoveRight className="w-4 h-4" />}
           {selectedClass === "Multi-city" && <Waypoints className="w-4 h-4" />}
           {type === "passenger" && <Users className="w-4 h-4" />}
+          {type === "sortBy" && <ArrowUpDown className="w-5 h-5" />}
 
           <span>{selectedClass}</span>
           <AiFillCaretDown
@@ -86,9 +101,10 @@ const DropdownSelect = ({ type }) => {
 
       {isOpen && (
         <div
-          className={`absolute ${
-            type === "class" ? "max-sm:right-0" : ""
-          } z-10 w-48 mt-1 bg-white rounded-lg shadow-lg overflow-hidden [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]`}
+          className={`absolute ${type === "class" ? "max-sm:right-0" : ""} ${
+            type === "sortBy" ? "text-black right-0 [&_span]:py-1" : ""
+          }
+          z-10 w-48 mt-1 bg-white rounded-lg text-base shadow-lg overflow-hidden [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]`}
         >
           {options.map((option) => (
             <div
