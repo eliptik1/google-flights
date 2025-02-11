@@ -22,21 +22,21 @@ const DROPDOWN_OPTIONS = {
   ],
 
   sortBy: [
-    { id: 1, name: "Price" },
-    { id: 2, name: "Departure time" },
-    { id: 3, name: "Arrival time" },
-    { id: 4, name: "Duration" },
-    { id: 5, name: "Emissions" },
+    { id: 1, name: "price" },
+    { id: 2, name: "departure time" },
+    { id: 3, name: "arrival time" },
+    { id: 4, name: "duration" },
+    { id: 5, name: "emissions" },
   ],
 };
 
 const DEFAULT_VALUES = {
   trip: "One way",
   class: "Economy",
-  sortBy: "Price",
+  sortBy: "price",
 };
 
-const DropdownSelect = ({ type }) => {
+const DropdownSelect = ({ type, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState(DEFAULT_VALUES[type]);
   const dropdownRef = useRef(null);
@@ -53,6 +53,7 @@ const DropdownSelect = ({ type }) => {
   }, []);
 
   const handleSelect = (option) => {
+    onChange(option.name);
     setSelectedClass(option.name);
     setIsOpen(false);
   };
@@ -78,9 +79,14 @@ const DropdownSelect = ({ type }) => {
           {selectedClass === "One way" && <MoveRight className="w-4 h-4" />}
           {selectedClass === "Multi-city" && <Waypoints className="w-4 h-4" />}
           {type === "passenger" && <Users className="w-4 h-4" />}
-          {type === "sortBy" && <ArrowUpDown className="w-5 h-5" />}
-
-          <span>{selectedClass}</span>
+          {type === "sortBy" && (
+            <>
+              <ArrowUpDown className="w-5 h-5" />
+            </>
+          )}
+          <span>
+            {type === "sortBy" && "Sorted by"} {selectedClass}
+          </span>
           <AiFillCaretDown
             size={12}
             className={`transition-transform duration-[400ms] ${
@@ -121,9 +127,7 @@ const DropdownSelect = ({ type }) => {
                   <Check size={18} />
                 </span>
               )}
-              <span className={option.name === selectedClass ? "" : ""}>
-                {option.name}
-              </span>
+              <span className={"capitalize"}>{option.name}</span>
             </div>
           ))}
         </div>

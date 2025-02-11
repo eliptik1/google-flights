@@ -17,14 +17,17 @@
   @apply border-[#dadce0];
 }
 
-.flight-cards div:first-child > div:first-of-type {
-  @apply rounded-tr-xl rounded-tl-xl;
+.flight-cards > div:last-child .card-content {
+  @apply border-b;
 }
-
-.flight-cards > div:last-of-type:not(:has(.flight-card-details)) div {
+.flight-cards > div:last-child .card-content:not(:has(.flight-card-details)) {
   @apply rounded-bl-xl rounded-br-xl;
 }
 
-.flight-cards > div:last-of-type:has(.flight-card-details) > div:last-of-type {
-  @apply border-t-0;
+.flight-cards > div:first-child .card-content {
+  @apply rounded-tr-xl rounded-tl-xl;
+}
+
+.view-more {
+  @apply border rounded-br-xl rounded-bl-xl;
 }

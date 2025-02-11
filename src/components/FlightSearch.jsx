@@ -2,24 +2,13 @@ import { useState } from "react";
 import { searchFlights, getFlightDetails } from "../api/flights";
 import { searchAirport } from "../api/airports";
 import { useEffect } from "react";
-import {
-  ArrowRight,
-  Users,
-  ChevronDown,
-  Map,
-  Calendar,
-  ArrowLeftRight,
-  ChevronLeft,
-  ChevronRight,
-  Search,
-  PlaneTakeoff,
-  MapPin,
-} from "lucide-react";
+import { ArrowLeftRight, Search, PlaneTakeoff, MapPin } from "lucide-react";
 import FlightResults from "./FlightResults";
 import testData from "../data/testData.json";
 import DropdownSelect from "./ui/DropdownSelect";
 import PassengerDropdown from "./ui/PassengerDropdown";
 import DatePicker from "./ui/DatePicker";
+import { VscLoading } from "react-icons/vsc";
 
 export const FlightSearch = () => {
   const [from, setFrom] = useState("");
@@ -182,9 +171,14 @@ export const FlightSearch = () => {
               <button
                 onClick={handleSearch}
                 disabled={loading}
-                className="bg-[#1a73e8] text-white font-semibold px-4 py-2 rounded-full flex items-center gap-2 hover:bg-[#1b66c9] transition-colors [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]"
+                className={`font-semibold px-4 py-2 rounded-full flex items-center gap-2 transition-colors [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]
+    ${
+      loading
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+        : "bg-[#1a73e8] text-white hover:bg-[#1b66c9]"
+    }`}
               >
-                <Search className="w-5 h-5 " />
+                <Search className="w-5 h-5" />
                 Search
               </button>
               <button onClick={testSearch} className="bg-blue-500 p-2">
@@ -197,20 +191,15 @@ export const FlightSearch = () => {
 
       <div className="space-y-3">
         {error && <div>Error: {error.message}</div>}
-        <div>
-          {loading ? "Loading..." : ""}
-          <FlightResults flights={flights} />
-          <ul>
-            {/* {flights.map((flight, index) => (
-            <li key={index}>
-              <p>Flight ID: {flight.id}</p>
-              <p>
-                Price: {flight.price.amount} {flight.price.currency}
-              </p>
-            </li>
-          ))} */}
-          </ul>
-        </div>
+
+        {loading ? (
+          <div className="flex justify-center text-gray-400">
+            <VscLoading size={48} className="animate-spin stroke-[0.4px]" />
+          </div>
+        ) : (
+          ""
+        )}
+        {flights.length >= 1 && <FlightResults flights={flights} />}
       </div>
     </>
   );
