@@ -9,16 +9,16 @@ import DropdownSelect from "./ui/DropdownSelect";
 import PassengerDropdown from "./ui/PassengerDropdown";
 import DatePicker from "./ui/DatePicker";
 import { VscLoading } from "react-icons/vsc";
+import FlightDetailsPage from "./FlightDetailsPage";
+import testDetailedFlight from "../data/testDetailedFlight.json";
 
 export const FlightSearch = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
+
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -88,11 +88,8 @@ export const FlightSearch = () => {
         date
       );
       console.log("searchResult:", searchResult);
+      localStorage.setItem("flightsSessionId", testData.sessionId);
       setFlights(searchResult.data.itineraries || []);
-
-      // 4.step: get flight details
-      // const flightDetails = await getFlightDetails(searchResult.sessionId);
-      // setFlights(flightDetails);
     } catch (err) {
       setError(err);
     } finally {
@@ -102,6 +99,11 @@ export const FlightSearch = () => {
 
   const testSearch = async () => {
     setFlights(testData.data.itineraries || []);
+    console.log("searchFlights:", testData);
+    localStorage.setItem("flightsSessionId", testData.sessionId);
+  };
+  const testSelectFlight = async () => {
+    setFlights(testDetailedFlight.data.itinerary || []);
   };
 
   return (
@@ -181,9 +183,9 @@ export const FlightSearch = () => {
                 <Search className="w-5 h-5" />
                 Search
               </button>
-              <button onClick={testSearch} className="bg-blue-500 p-2">
+              {/* <button onClick={testSearch} className="bg-blue-500 p-2">
                 Test Search
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -191,6 +193,8 @@ export const FlightSearch = () => {
 
       <div className="space-y-3">
         {error && <div>Error: {error.message}</div>}
+
+        {/* <FlightDetailsPage flightDetails={testDetailedFlight} /> */}
 
         {loading ? (
           <div className="flex justify-center text-gray-400">

@@ -1,7 +1,34 @@
 import { FaEarthAfrica } from "react-icons/fa6";
 import { MdAirlineSeatLegroomNormal } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { getFlightDetails } from "../api/flights";
+
+import testDetailedFlight from "../data/testDetailedFlight.json";
 
 const FlightCardDetails = ({ flight }) => {
+  const navigate = useNavigate();
+
+  const handleSelectFlight = async () => {
+    try {
+      //localStorage.removeItem("selectedFlightDetails"); //clear the storage to prevent bugs
+      localStorage.setItem("selectedFlight", JSON.stringify(flight));
+
+      navigate(`/flight-details/${flight.id}`);
+
+      // make API request
+      const flightsSessionId = localStorage.getItem("flightsSessionId");
+      const flightDetails = await getFlightDetails(flight, flightsSessionId);
+
+      // save the data after API request
+      localStorage.setItem(
+        "selectedFlightDetails",
+        JSON.stringify(flightDetails)
+      );
+    } catch (error) {
+      console.error("Error fetching flight details:", error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-[68px_28px_minmax(0,_1fr)_minmax(0,_280px)] max-md:grid-cols-[auto_28px_minmax(0,_1fr)_minmax(0,_280px)] grid-rows-[auto_auto_auto_auto] gap-x-4">
       {/* departure */}
@@ -50,7 +77,7 @@ const FlightCardDetails = ({ flight }) => {
       {/* Right Column - Features and Button */}
       <div className="flex flex-col items-end max-md:items-start space-y-4 col-start-5 row-start-1 row-span-4 max-md:col-start-3 max-md:row-start-5 max-md:col-span-3 max-md:pt-3">
         <button
-          onClick={() => {}}
+          onClick={handleSelectFlight}
           className={`font-semibold bg-white px-5 py-2 border border-gray-300 rounded-full flex items-center gap-2 transition-colors text-[#1a73e8]  hover:text-[#3b4ea6] text-sm`}
         >
           Select flight

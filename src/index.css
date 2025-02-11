@@ -30,3 +30,19 @@
 .view-more {
   @apply border rounded-br-xl rounded-bl-xl;
 }
+
+.booking-options > .booking-card:first-of-type {
+  @apply rounded-tr-xl rounded-tl-xl;
+}
+
+.booking-options > .booking-card:last-of-type {
+  @apply rounded-br-xl border-b rounded-bl-xl;
+}
+
+.details-page-card .card-content {
+  @apply border border-[#dadce0] rounded-tr-xl rounded-tl-xl;
+}
+
+.details-page-card .flight-card-details {
+  @apply border border-[#dadce0] rounded-bl-xl border-t-0;
+}

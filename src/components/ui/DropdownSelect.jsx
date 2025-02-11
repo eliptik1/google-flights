@@ -22,18 +22,19 @@ const DROPDOWN_OPTIONS = {
   ],
 
   sortBy: [
-    { id: 1, name: "price" },
-    { id: 2, name: "departure time" },
-    { id: 3, name: "arrival time" },
-    { id: 4, name: "duration" },
-    { id: 5, name: "emissions" },
+    { id: 1, name: "top flights" },
+    { id: 2, name: "price" },
+    { id: 3, name: "departure time" },
+    { id: 4, name: "arrival time" },
+    { id: 5, name: "duration" },
+    { id: 6, name: "emissions" },
   ],
 };
 
 const DEFAULT_VALUES = {
   trip: "One way",
   class: "Economy",
-  sortBy: "price",
+  sortBy: "top flights",
 };
 
 const DropdownSelect = ({ type, onChange }) => {

@@ -12,14 +12,14 @@ const FlightCardContent = ({
       {/* DESKTOP main card content */}
       {view === "desktop" && (
         <div
-          className="card-content max-md:hidden py-4 pl-6 flex items-center cursor-pointer text-base text-[#202124] font-roboto border border-b-0 border-black "
+          className="card-content max-md:hidden py-4 pl-6 flex items-center cursor-pointer text-base text-[#202124] font-roboto border border-b-0 "
           onClick={() => toggleFlight(flight.id)}
         >
           {/* Logo - Fixed width */}
           <div className="w-[68px] flex-shrink-0 ">
             <img
-              src={flight.legs[0].carriers.marketing[0].logoUrl}
-              alt={flight.legs[0].carriers.marketing[0].name}
+              src={flight.legs[0].carriers?.marketing[0].logoUrl}
+              alt={flight.legs[0].carriers?.marketing[0].name}
               className="h-9 max-w-full"
             />
           </div>
@@ -37,7 +37,7 @@ const FlightCardContent = ({
               })}
             </p>
             <p className=" whitespace-nowrap text-sm text-[#70757a]">
-              {flight.legs[0].carriers.marketing[0].name}
+              {flight.legs[0].carriers?.marketing[0].name}
             </p>
           </div>
           {/* Flight duration and airports */}
@@ -77,7 +77,7 @@ const FlightCardContent = ({
           </div>
           {/* Price */}
           <div className="w-[100px] flex items-center justify-end space-x-2 px-2 flex-[4]">
-            <p className="font-semibold">{flight.price.formatted}</p>
+            <p className="font-semibold">{flight?.price?.formatted}</p>
           </div>
           <div className="px-8">
             <ChevronDown

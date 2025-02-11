@@ -1,0 +1,202 @@
+{
+  "status": true,
+  "timestamp": 1691009267165,
+  "data": {
+    "itinerary": {
+      "legs": [
+        {
+          "id": "13542-2402201235--30598-0-12712-2402201550",
+          "origin": {
+            "id": "13542",
+            "name": "London Gatwick",
+            "displayCode": "LGW",
+            "city": "London"
+          },
+          "destination": {
+            "id": "12712",
+            "name": "New York John F. Kennedy",
+            "displayCode": "JFK",
+            "city": "New York"
+          },
+          "segments": [
+            {
+              "id": "13542-12712-2402201235-2402201550--30598",
+              "origin": {
+                "id": "13542",
+                "name": "London Gatwick",
+                "displayCode": "LGW",
+                "city": "London"
+              },
+              "destination": {
+                "id": "12712",
+                "name": "New York John F. Kennedy",
+                "displayCode": "JFK",
+                "city": "New York"
+              },
+              "duration": 495,
+              "dayChange": 0,
+              "flightNumber": "Z0701",
+              "departure": "2024-02-20T12:35:00",
+              "arrival": "2024-02-20T15:50:00",
+              "marketingCarrier": {
+                "id": "-30598",
+                "name": "Norse Atlantic Airways (UK)",
+                "displayCode": "Z0",
+                "displayCodeType": "IATA",
+                "logo": "https://logos.skyscnr.com/images/airlines/favicon/I).png",
+                "altId": "I)"
+              },
+              "operatingCarrier": {
+                "id": "-30598",
+                "name": "Norse Atlantic Airways (UK)",
+                "displayCode": "Z0",
+                "displayCodeType": "IATA",
+                "logo": "https://logos.skyscnr.com/images/airlines/favicon/I).png",
+                "altId": "I)"
+              }
+            }
+          ],
+          "duration": 495,
+          "stopCount": 0,
+          "departure": "2024-02-20T12:35:00",
+          "arrival": "2024-02-20T15:50:00",
+          "dayChange": 0
+        }
+      ],
+      "pricingOptions": [
+        {
+          "agents": [
+            {
+              "id": "arus",
+              "name": "Mytrip",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/arus/1/13542.12712.2024-02-20/air/trava/flights?itinerary=flight|-30598|701|13542|2024-02-20T12:35|12712|2024-02-20T15:50|495|-|-|-&carriers=-30598&operators=-30598&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=423a83ad-3665-45a4-b02d-d2890051d50f&ticket_price=270.99&is_npt=false&is_multipart=false&client_id=skyscanner_app&request_id=dccc6832-c515-44a9-8e9e-93a7c7b2f3b7&q_ids=H4sIAAAAAAAA_-OS4mJJLCotFmLmuKUixczRo6vQcP38OjYjJgVGAC7vlo8cAAAA|8736221224533380069|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-08-02T20:45:04&pqid=true",
+              "price": 270.99,
+              "rating": {
+                "value": 3.01,
+                "count": 9532
+              },
+              "updateStatus": "CURRENT",
+              "segments": [
+                {
+                  "id": "13542-12712-2402201235-2402201550--30598",
+                  "origin": {
+                    "id": "13542",
+                    "name": "London Gatwick",
+                    "displayCode": "LGW",
+                    "city": "London"
+                  },
+                  "destination": {
+                    "id": "12712",
+                    "name": "New York John F. Kennedy",
+                    "displayCode": "JFK",
+                    "city": "New York"
+                  },
+                  "duration": 495,
+                  "dayChange": 0,
+                  "flightNumber": "Z0701",
+                  "departure": "2024-02-20T12:35:00",
+                  "arrival": "2024-02-20T15:50:00",
+                  "marketingCarrier": {
+                    "id": "-30598",
+                    "name": "Norse Atlantic Airways (UK)",
+                    "displayCode": "Z0",
+                    "displayCodeType": "IATA",
+                    "logo": "https://logos.skyscnr.com/images/airlines/favicon/I).png",
+                    "altId": "I)"
+                  },
+                  "operatingCarrier": {
+                    "id": "-30598",
+                    "name": "Norse Atlantic Airways (UK)",
+                    "displayCode": "Z0",
+                    "displayCodeType": "IATA",
+                    "logo": "https://logos.skyscnr.com/images/airlines/favicon/I).png",
+                    "altId": "I)"
+                  }
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 3
+            }
+          ],
+          "totalPrice": 270.99
+        },
+        {
+          "agents": [
+            {
+              "id": "edus",
+              "name": "eDreams",
+              "isCarrier": false,
+              "bookingProposition": "PBOOK",
+              "url": "https://www.skyscanner.net/transport_deeplink/4.0/US/en-US/USD/edus/1/13542.12712.2024-02-20/air/trava/flights?itinerary=flight|-30598|701|13542|2024-02-20T12:35|12712|2024-02-20T15:50|495|-|-|-&carriers=-30598&operators=-30598&passengers=1&channel=iphone&cabin_class=economy&fps_session_id=423a83ad-3665-45a4-b02d-d2890051d50f&ticket_price=272.81&is_npt=false&is_multipart=false&client_id=skyscanner_app&request_id=dccc6832-c515-44a9-8e9e-93a7c7b2f3b7&q_ids=H4sIAAAAAAAA_-OS4mJJTSktFmLmuKUixczRo6vQcP38OjYjJgVGAEeFKAocAAAA|589607429926384355|2&q_sources=JACQUARD&commercial_filters=false&q_datetime_utc=2023-08-02T20:45:08&pqid=true",
+              "price": 272.81,
+              "rating": {
+                "value": 2.63,
+                "count": 10415
+              },
+              "updateStatus": "CURRENT",
+              "segments": [
+                {
+                  "id": "13542-12712-2402201235-2402201550--30598",
+                  "origin": {
+                    "id": "13542",
+                    "name": "London Gatwick",
+                    "displayCode": "LGW",
+                    "city": "London"
+                  },
+                  "destination": {
+                    "id": "12712",
+                    "name": "New York John F. Kennedy",
+                    "displayCode": "JFK",
+                    "city": "New York"
+                  },
+                  "duration": 495,
+                  "dayChange": 0,
+                  "flightNumber": "Z0701",
+                  "departure": "2024-02-20T12:35:00",
+                  "arrival": "2024-02-20T15:50:00",
+                  "marketingCarrier": {
+                    "id": "-30598",
+                    "name": "Norse Atlantic Airways (UK)",
+                    "displayCode": "Z0",
+                    "displayCodeType": "IATA",
+                    "logo": "https://logos.skyscnr.com/images/airlines/favicon/I).png",
+                    "altId": "I)"
+                  },
+                  "operatingCarrier": {
+                    "id": "-30598",
+                    "name": "Norse Atlantic Airways (UK)",
+                    "displayCode": "Z0",
+                    "displayCodeType": "IATA",
+                    "logo": "https://logos.skyscnr.com/images/airlines/favicon/I).png",
+                    "altId": "I)"
+                  }
+                }
+              ],
+              "isDirectDBookUrl": false,
+              "quoteAge": 3
+            }
+          ],
+          "totalPrice": 272.81
+        }
+      ],
+      "isTransferRequired": false,
+      "destinationImage": "https://content.skyscnr.com/b62fd4346123d1eb9f7525c8f72f2a8a/stock-photo-new-york-city-at-twilight-128894587.jpg",
+      "operatingCarrierSafetyAttributes": [
+        {
+          "carrierID": "-30598",
+          "carrierName": "Norse Atlantic Airways (UK)",
+          "faceMasksCompulsory": null,
+          "aircraftDeepCleanedDaily": null,
+          "attendantsWearPPE": null,
+          "cleaningPacksProvided": null,
+          "foodServiceChanges": null,
+          "safetyUrl": null
+        }
+      ],
+      "flexibleTicketPolicies": []
+    },
+    "pollingCompleted": true
+  }
+}

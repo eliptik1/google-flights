@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 
 const FlightResults = ({ flights }) => {
   const [selectedFlightId, setSelectedFlightId] = useState(null);
-  const [sortBy, setSortBy] = useState("price");
+  const [sortBy, setSortBy] = useState("top flights");
   const [showAllFlights, setShowAllFlights] = useState(false);
 
   const toggleFlight = (flightId) => {
@@ -16,6 +16,8 @@ const FlightResults = ({ flights }) => {
   const sortedFlights = useMemo(() => {
     return [...flights].sort((a, b) => {
       switch (sortBy) {
+        case "top flights":
+          return b.score - a.score;
         case "price":
           return a.price.raw - b.price.raw;
         case "departure time":

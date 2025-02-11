@@ -24,9 +24,31 @@ export const searchFlights = async (
   }
 };
 
-export const getFlightDetails = async () => {
-  const url =
-    "https://sky-scrapper.p.rapidapi.com/api/v1/flights/getFlightDetails?legs=%22%5B%7B%5C%22destination%5C%22%3A%5C%22LOND%5C%22%2C%5C%22origin%5C%22%3A%5C%22LAXA%5C%22%2C%5C%22date%5C%22%3A%5C%222024-04-11%5C%22%7D%5D%22&adults=1&currency=USD&locale=en-US&market=en-US&cabinClass=economy&countryCode=US";
+export const getFlightDetails = async (flight, flightsSessionId) => {
+  const legs = [
+    {
+      destination: flight.legs[0].destination.displayCode,
+      origin: flight.legs[0].origin.displayCode,
+      date: flight.legs[0].departure.split("T")[0],
+    },
+  ];
+
+  const baseUrl =
+    "https://sky-scrapper.p.rapidapi.com/api/v1/flights/getFlightDetails";
+  const params = new URLSearchParams({
+    itineraryId: flight.id,
+    legs: JSON.stringify(legs),
+    sessionId: flightsSessionId,
+    adults: "1",
+    currency: "USD",
+    locale: "en-US",
+    market: "en-US",
+    cabinClass: "economy",
+    countryCode: "US",
+  });
+
+  const url = `${baseUrl}?${params}`;
+
   const options = {
     method: "GET",
     headers: {
@@ -37,11 +59,10 @@ export const getFlightDetails = async () => {
 
   try {
     const response = await fetch(url, options);
-    const result = await response.json();
-    console.log("result:", result);
-    return result;
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error("getFlightDetailError:", error);
+    console.error("Error fetching flight details:", error);
     throw error;
   }
 };
