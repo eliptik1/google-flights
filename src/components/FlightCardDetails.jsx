@@ -49,7 +49,10 @@ const FlightCardDetails = ({ flight }) => {
 
       {/* Right Column - Features and Button */}
       <div className="flex flex-col items-end max-md:items-start space-y-4 col-start-5 row-start-1 row-span-4 max-md:col-start-3 max-md:row-start-5 max-md:col-span-3 max-md:pt-3">
-        <button className="px-6 py-2 bg-[#1967d2] text-white rounded-lg hover:bg-blue-700 font-medium text-sm">
+        <button
+          onClick={() => {}}
+          className={`font-semibold bg-white px-5 py-2 border border-gray-300 rounded-full flex items-center gap-2 transition-colors text-[#1a73e8]  hover:text-[#3b4ea6] text-sm`}
+        >
           Select flight
         </button>
         <div className="space-y-2">

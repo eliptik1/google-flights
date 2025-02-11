@@ -45,10 +45,10 @@ const FlightResults = ({ flights }) => {
     : sortedFlights.slice(0, 10);
 
   return (
-    <div className="bg-white rounded-lg max-md:px-2">
+    <div className="bg-white rounded-lg">
       <div className="flex text-xl font-roboto font-semibold">All Flights</div>
-      <div className="flex items-center justify-between text-[#70757a] text-xs font-roboto">
-        <p className="text-left">
+      <div className="flex items-start justify-between text-[#70757a] text-xs font-roboto gap-2 mb-4">
+        <p className="text-left py-2">
           Prices include required taxes + fees for 1 adult. Optional charges and
           bag fees may apply. Passenger assistance info.
         </p>

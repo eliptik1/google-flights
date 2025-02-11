@@ -8,8 +8,7 @@
 
 #root {
   margin: 0 auto;
-  padding: 0 2rem;
-  @apply max-md:p-2 max-md:pt-0;
+  @apply max-md:pt-0;
   text-align: center;
 }
 

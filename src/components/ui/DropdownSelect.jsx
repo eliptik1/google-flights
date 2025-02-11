@@ -69,7 +69,7 @@ const DropdownSelect = ({ type, onChange }) => {
             isOpen ? "bg-[#e8f0fe]" : "bg-white"
           } ${
             type === "sortBy"
-              ? "text-[#1a73e8] hover:text-[#1750a8] font-semibold"
+              ? "text-[#1a73e8] hover:text-[#1750a8] text-sm font-semibold text-nowrap"
               : ""
           } group`}
         >
@@ -81,7 +81,7 @@ const DropdownSelect = ({ type, onChange }) => {
           {type === "passenger" && <Users className="w-4 h-4" />}
           {type === "sortBy" && (
             <>
-              <ArrowUpDown className="w-5 h-5" />
+              <ArrowUpDown className="min-w-4 min-h-4" />
             </>
           )}
           <span>

@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 
 function Footer() {
   return (
-    <div className="font-roboto">
+    <div className="font-roboto w-full">
       <div className="mt-12 flex flex-wrap gap-4 justify-center text-sm text-[#1a73e8] ">
         <button className="flex items-center gap-2 hover:text-[#174ea6] px-3 py-1 border border-gray-300 rounded-full">
           <span className="">
@@ -48,7 +48,7 @@ function Footer() {
         may also be applied by our partners. You should then check prices and
         conditions with the services providers before booking.
       </p>
-      <div className="mt-8 pb-6 flex justify-center gap-6 text-sm text-blue-500 border-b border-gray-300">
+      <div className="mt-8 pb-6 flex flex-wrap justify-center gap-6 text-sm text-blue-500 border-b border-gray-300">
         <a href="#" className="hover:underline">
           About
         </a>
@@ -68,7 +68,7 @@ function Footer() {
           Help Center
         </a>
       </div>
-      <div className="mt-8 flex justify-center gap-6 text-sm text-blue-500">
+      <div className="mt-8 mb-4 flex justify-center gap-6 text-sm text-blue-500">
         <button className="flex items-center gap-1">
           International sites
           <ChevronDown className="w-4 h-4" />

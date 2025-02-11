@@ -269,7 +269,7 @@ const DatePicker = ({ setDate }) => {
 
       {/* Calendar Dropdown */}
       {isOpen && (
-        <div className="fixed max-sm:inset-0 lg:absolute z-[100] max-lg:-right-8 max-md:left-0 md:right-0 select-none mt-1 bg-white rounded-lg [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
+        <div className="fixed max-sm:inset-0 lg:absolute z-[100] max-lg:-right-8 max-md:left-0 max-lg:fixed max-lg:bottom-0  md:right-0 select-none bg-white rounded-lg [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)]">
           <div className="sm:hidden flex items-center gap-4 pr-12 justify-center py-3 border-t border-gray-300 ">
             <button onClick={() => setIsOpen(!isOpen)}>
               <ArrowLeft />
