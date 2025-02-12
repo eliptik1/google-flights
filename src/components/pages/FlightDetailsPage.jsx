@@ -1,16 +1,13 @@
 import React from "react";
-import { MdAirlineSeatLegroomNormal, MdLuggage } from "react-icons/md";
 import { FaArrowRightLong, FaEarthAfrica } from "react-icons/fa6";
-import { IoWarningOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getFlightDetails } from "../api/flights";
 import { useState } from "react";
-import { MoveRight } from "lucide-react";
 import { Users } from "lucide-react";
-import FlightCardContent from "./FlightCardContent";
-import FlightCardDetails from "./FlightCardDetails";
+
 import { VscLoading } from "react-icons/vsc";
+import FlightCardContent from "../FlightCardContent";
+import FlightCardDetails from "../FlightCardDetails";
 
 const FlightDetailsPage = () => {
   const navigate = useNavigate();
@@ -26,37 +23,72 @@ const FlightDetailsPage = () => {
 
   useEffect(() => {
     const fetchFlightDetails = async () => {
-      const cachedDetails = localStorage.getItem("selectedFlightDetails");
-      const savedFlight = localStorage.getItem("selectedFlight");
+      setLoading(true);
 
-      if (savedFlight) {
-        setSelectedFlight(JSON.parse(savedFlight));
-      }
+      try {
+        const savedFlight = localStorage.getItem("selectedFlight");
+        const cachedDetails = localStorage.getItem("selectedFlightDetails");
 
-      if (cachedDetails) {
-        try {
-          setFlightDetails(JSON.parse(cachedDetails));
-        } catch (error) {
-          console.error("Error parsing flight details:", error);
-          localStorage.removeItem("selectedFlightDetails"); // clear the bad data
+        if (!savedFlight) {
+          navigate("/flights"); // Redirect if no selected flight
+          return;
         }
-        setLoading(false);
-        return;
-      }
 
-      setLoading(false);
+        const parsedFlight = JSON.parse(savedFlight);
+
+        // Check if the cached flight matches the URL id
+        if (parsedFlight.id !== id) {
+          navigate("/flights"); // Redirect if IDs don't match
+          return;
+        }
+
+        setSelectedFlight(parsedFlight);
+
+        if (cachedDetails) {
+          try {
+            const parsedDetails = JSON.parse(cachedDetails);
+
+            // Verify cached details belong to the correct flight
+            setFlightDetails(parsedDetails);
+            if (parsedDetails.data?.itinerary?.id === id) {
+            } else {
+              localStorage.removeItem("selectedFlightDetails");
+            }
+          } catch (error) {
+            console.error("Error parsing flight details:", error);
+            localStorage.removeItem("selectedFlightDetails");
+          }
+        }
+      } catch (error) {
+        console.error("Error loading flight data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchFlightDetails();
-  }, [id]);
+  }, [id, navigate]);
 
-  if (!selectedFlight)
+  if (loading) {
     return (
       <div className="flex justify-center text-gray-400 mt-12">
         <VscLoading size={48} className="animate-spin stroke-[0.4px]" />
       </div>
     );
-  if (!flightDetails) return <div>Flight details not found.</div>;
+  }
+  if (!selectedFlight || !flightDetails) {
+    return (
+      <div className="my-16 flex flex-col items-center">
+        Flight details not found.{" "}
+        <button
+          onClick={() => navigate("/")}
+          className={`font-semibold bg-white px-5 my-6 py-2 border border-gray-300 rounded-full flex items-center gap-2 transition-colors text-[#1a73e8]  hover:text-[#3b4ea6] text-sm`}
+        >
+          Return Home
+        </button>
+      </div>
+    );
+  }
 
   // since flightDetails is no longer null, we can use the data
   const itinerary = flightDetails.data.itinerary;
@@ -74,7 +106,7 @@ const FlightDetailsPage = () => {
       ) : (
         ""
       )}
-      <div className="max-w-5xl mx-auto p-6">
+      <div className="p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-8 font-roboto">
           <div>

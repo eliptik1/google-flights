@@ -3,8 +3,11 @@ import DropdownSelect from "./ui/DropdownSelect";
 import FlightCardContent from "./FlightCardContent";
 import FlightCardDetails from "./FlightCardDetails";
 import { ChevronDown } from "lucide-react";
+import { useFlightContext } from "./context/FlightContext";
 
-const FlightResults = ({ flights }) => {
+const FlightResults = () => {
+  const { flightResults: flights } = useFlightContext();
+
   const [selectedFlightId, setSelectedFlightId] = useState(null);
   const [sortBy, setSortBy] = useState("top flights");
   const [showAllFlights, setShowAllFlights] = useState(false);
@@ -14,6 +17,8 @@ const FlightResults = ({ flights }) => {
   };
 
   const sortedFlights = useMemo(() => {
+    if (!flights || flights.length === 0) return [];
+
     return [...flights].sort((a, b) => {
       switch (sortBy) {
         case "top flights":

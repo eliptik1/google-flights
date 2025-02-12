@@ -9,24 +9,37 @@ import DropdownSelect from "./ui/DropdownSelect";
 import PassengerDropdown from "./ui/PassengerDropdown";
 import DatePicker from "./ui/DatePicker";
 import { VscLoading } from "react-icons/vsc";
-import FlightDetailsPage from "./FlightDetailsPage";
-import testDetailedFlight from "../data/testDetailedFlight.json";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useFlightContext } from "./context/FlightContext";
 
 export const FlightSearch = () => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const { searchParams, setSearchParams, flightResults, setFlightResults } =
+    useFlightContext();
+  const [from, setFrom] = useState(searchParams?.from || "");
+  const [to, setTo] = useState(searchParams?.to || "");
+  const [date, setDate] = useState(
+    searchParams?.date || new Date().toISOString().split("T")[0]
+  );
 
-  const today = new Date().toISOString().split("T")[0];
-  const [date, setDate] = useState(today);
-
-  const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {}, []);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setFlightResults([]);
+      setSearchParams(null);
+    }
+  }, [location.pathname]);
 
   const handleSearch = async () => {
     if (from == "" || to == "") return;
+
+    setFlightResults(testData.data.itineraries || []);
+    setSearchParams({ from, to, date });
+
     setLoading(true);
     setError(null);
 
@@ -88,27 +101,34 @@ export const FlightSearch = () => {
         date
       );
       console.log("searchResult:", searchResult);
-      localStorage.setItem("flightsSessionId", testData.sessionId);
-      setFlights(searchResult.data.itineraries || []);
+
+      setFlightResults(searchResult.data.itineraries);
+      setSearchParams({ from, to, date });
+
+      localStorage.setItem("flightsSessionId", searchResult.sessionId);
+      navigate("/flights");
     } catch (err) {
       setError(err);
+      setFlightResults([]);
+      setFlights([]);
     } finally {
       setLoading(false);
     }
   };
 
   const testSearch = async () => {
-    setFlights(testData.data.itineraries || []);
-    console.log("searchFlights:", testData);
+    // Set test data
+    setFlightResults(testData.data.itineraries);
+    setSearchParams({ from, to, date });
+
+    // Store session ID
     localStorage.setItem("flightsSessionId", testData.sessionId);
-  };
-  const testSelectFlight = async () => {
-    setFlights(testDetailedFlight.data.itinerary || []);
+    navigate("/flights");
   };
 
   return (
     <>
-      <div className="mx-auto mb-16">
+      <div className="mb-16">
         <div className="relative bg-white rounded-xl [box-shadow:0_1px_3px_0_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)] max-md:p-2 p-6 pb-12 max-md:pb-8">
           <div className="flex flex-nowrap gap-4 mb-6 z-50 relative">
             {/* Trip Type Selector */}
@@ -183,9 +203,9 @@ export const FlightSearch = () => {
                 <Search className="w-5 h-5" />
                 Search
               </button>
-              {/* <button onClick={testSearch} className="bg-blue-500 p-2">
+              <button onClick={testSearch} className="bg-blue-500 p-2">
                 Test Search
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
@@ -194,16 +214,14 @@ export const FlightSearch = () => {
       <div className="space-y-3">
         {error && <div>Error: {error.message}</div>}
 
-        {/* <FlightDetailsPage flightDetails={testDetailedFlight} /> */}
-
         {loading ? (
-          <div className="flex justify-center text-gray-400">
+          <div className="flex justify-center text-gray-400 my-16">
             <VscLoading size={48} className="animate-spin stroke-[0.4px]" />
           </div>
         ) : (
           ""
         )}
-        {flights.length >= 1 && <FlightResults flights={flights} />}
+        {flightResults.length >= 1 && <FlightResults />}
       </div>
     </>
   );
