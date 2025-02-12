@@ -100,7 +100,7 @@ const FlightCardContent = ({
             <img
               src={flight.legs[0].carriers.marketing[0].logoUrl}
               alt={flight.legs[0].carriers.marketing[0].name}
-              className="min-h-6 min-w-6"
+              className="min-h-6 min-w-6 max-w-8 max-h-8"
             />
           </div>
           {/* 2. Departure Time */}

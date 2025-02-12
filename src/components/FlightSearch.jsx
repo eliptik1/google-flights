@@ -213,7 +213,9 @@ export const FlightSearch = () => {
       </div>
 
       <div className="space-y-3">
-        {error && <div>Error: {error.message}</div>}
+        {error && (
+          <div className="my-6 font-semibold">Error: {error.message}</div>
+        )}
 
         {loading ? (
           <div className="flex justify-center text-gray-400 my-16">
