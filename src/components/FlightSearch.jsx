@@ -37,17 +37,16 @@ export const FlightSearch = () => {
   const handleSearch = async () => {
     if (from == "" || to == "") return;
 
-    setFlightResults(testData.data.itineraries || []);
-    setSearchParams({ from, to, date });
-
     setLoading(true);
     setError(null);
 
     try {
       // 1. step: find airport code for "where from"
       const fromAirports = await searchAirport(from);
-
       console.log("fromAirports:", fromAirports);
+      if (!fromAirports.data || fromAirports.data.length === 0) {
+        throw new Error("No airports found for origin city");
+      }
 
       let originSkyId;
       let originEntityId;
@@ -66,11 +65,13 @@ export const FlightSearch = () => {
         originSkyId = fromAirports.data[0].skyId;
         originEntityId = fromAirports.data[0].entityId;
       }
-      console.log("originEntityId:", originEntityId);
 
       // 2. step: find airport code for "where to"
       const toAirports = await searchAirport(to);
       console.log("toAirports:", toAirports);
+      if (!toAirports.data || toAirports.data.length === 0) {
+        throw new Error("No airports found for destination city");
+      }
 
       let destinationSkyId;
       let destinationEntityId;
@@ -90,7 +91,6 @@ export const FlightSearch = () => {
         destinationSkyId = toAirports.data[0].skyId;
         destinationEntityId = toAirports.data[0].entityId;
       }
-      console.log("destinationEntityId:", destinationEntityId);
 
       // 3.step search for flights
       const searchResult = await searchFlights(
@@ -100,17 +100,18 @@ export const FlightSearch = () => {
         destinationEntityId,
         date
       );
+      if (!searchResult.data?.itineraries) {
+        throw new Error("No flights found");
+      }
       console.log("searchResult:", searchResult);
 
       setFlightResults(searchResult.data.itineraries);
       setSearchParams({ from, to, date });
-
       localStorage.setItem("flightsSessionId", searchResult.sessionId);
       navigate("/flights");
     } catch (err) {
       setError(err);
       setFlightResults([]);
-      setFlights([]);
     } finally {
       setLoading(false);
     }
@@ -203,9 +204,9 @@ export const FlightSearch = () => {
                 <Search className="w-5 h-5" />
                 Search
               </button>
-              <button onClick={testSearch} className="bg-blue-500 p-2">
+              {/* <button onClick={testSearch} className="bg-blue-500 p-2">
                 Test Search
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import Layout from "./components/pages/Layout";
 import { FlightProvider } from "./components/context/FlightContext";
 import FlightResults from "./components/FlightResults";
 import FlightDetailsPage from "./components/pages/FlightDetailsPage";
+import NotFound from "./components/pages/NotFound";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
               }
             />
             <Route path="flights/:id" element={<FlightDetailsPage />} />
+
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -13,14 +13,20 @@ const FlightCardDetails = ({ flight }) => {
   const handleSelectFlight = async () => {
     try {
       setSelectedFlight(flight);
-      //localStorage.removeItem("selectedFlightDetails"); //clear the storage to prevent bugs
       localStorage.setItem("selectedFlight", JSON.stringify(flight));
 
       navigate(`/flights/${flight.id}`);
 
       // make API request
       const flightsSessionId = localStorage.getItem("flightsSessionId");
+      if (!flightsSessionId) {
+        throw new Error("Session ID not found");
+      }
+
       const flightDetails = await getFlightDetails(flight, flightsSessionId);
+      if (!flightDetails) {
+        throw new Error("Could not fetch flight details");
+      }
 
       // save the data after API request
       localStorage.setItem(
@@ -28,7 +34,8 @@ const FlightCardDetails = ({ flight }) => {
         JSON.stringify(flightDetails)
       );
     } catch (error) {
-      console.error("Error fetching flight details:", error);
+      console.error("Error selecting flight:", error);
+      alert("Could not load flight details. Please try again.");
     }
   };
   const handleTestFlight = async () => {
@@ -93,8 +100,8 @@ const FlightCardDetails = ({ flight }) => {
       {/* Right Column - Features and Button */}
       <div className="flex flex-col items-end max-md:items-start space-y-4 col-start-5 row-start-1 row-span-4 max-md:col-start-3 max-md:row-start-5 max-md:col-span-3 max-md:pt-3">
         <button
-          // onClick={handleSelectFlight}
-          onClick={handleTestFlight}
+          onClick={handleSelectFlight}
+          // onClick={handleTestFlight}
           className={`font-semibold bg-white px-5 py-2 border border-gray-300 rounded-full flex items-center gap-2 transition-colors text-[#1a73e8]  hover:text-[#3b4ea6] text-sm`}
         >
           Select flight

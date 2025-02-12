@@ -22,51 +22,42 @@ const FlightDetailsPage = () => {
   };
 
   useEffect(() => {
-    const fetchFlightDetails = async () => {
-      setLoading(true);
+    const checkFlightDetails = async () => {
+      const savedFlight = localStorage.getItem("selectedFlight");
+      const savedDetails = localStorage.getItem("selectedFlightDetails");
 
-      try {
-        const savedFlight = localStorage.getItem("selectedFlight");
-        const cachedDetails = localStorage.getItem("selectedFlightDetails");
+      if (!savedFlight) {
+        navigate("/flights"); // Redirect if no selected flight
+        return;
+      }
 
-        if (!savedFlight) {
-          navigate("/flights"); // Redirect if no selected flight
-          return;
-        }
+      const parsedFlight = JSON.parse(savedFlight);
+      // Check if the cached flight matches the URL id
+      if (parsedFlight.id !== id) {
+        navigate("/flights"); // Redirect if IDs don't match
+        return;
+      }
 
-        const parsedFlight = JSON.parse(savedFlight);
+      setSelectedFlight(parsedFlight);
 
-        // Check if the cached flight matches the URL id
-        if (parsedFlight.id !== id) {
-          navigate("/flights"); // Redirect if IDs don't match
-          return;
-        }
-
-        setSelectedFlight(parsedFlight);
-
-        if (cachedDetails) {
-          try {
-            const parsedDetails = JSON.parse(cachedDetails);
-
-            // Verify cached details belong to the correct flight
-            setFlightDetails(parsedDetails);
-            if (parsedDetails.data?.itinerary?.id === id) {
-            } else {
-              localStorage.removeItem("selectedFlightDetails");
-            }
-          } catch (error) {
-            console.error("Error parsing flight details:", error);
-            localStorage.removeItem("selectedFlightDetails");
-          }
-        }
-      } catch (error) {
-        console.error("Error loading flight data:", error);
-      } finally {
+      if (savedDetails) {
+        setFlightDetails(JSON.parse(savedDetails));
         setLoading(false);
       }
     };
 
-    fetchFlightDetails();
+    checkFlightDetails();
+
+    // Poll for flight details
+    const interval = setInterval(() => {
+      const details = localStorage.getItem("selectedFlightDetails");
+      if (details) {
+        setFlightDetails(JSON.parse(details));
+        setLoading(false);
+        clearInterval(interval);
+      }
+    }, 500); // check every 500ms
+    return () => clearInterval(interval);
   }, [id, navigate]);
 
   if (loading) {
@@ -93,9 +84,7 @@ const FlightDetailsPage = () => {
   // since flightDetails is no longer null, we can use the data
   const itinerary = flightDetails.data.itinerary;
   const leg = itinerary.legs[0];
-  const lowestPrice = Math.min(
-    ...itinerary.pricingOptions.map((option) => option.totalPrice)
-  );
+  const lowestPrice = selectedFlight.price.raw;
 
   return (
     <>
@@ -108,6 +97,12 @@ const FlightDetailsPage = () => {
       )}
       <div className="p-6">
         {/* Header */}
+        <button
+          onClick={() => navigate(-1)}
+          className={`font-semibold bg-white px-5 my-6 py-2 border border-gray-300 rounded-full flex items-center gap-2 transition-colors text-[#1a73e8]  hover:text-[#3b4ea6] text-sm`}
+        >
+          Return Flights
+        </button>
         <div className="flex justify-between items-center mb-8 font-roboto">
           <div>
             <div className="flex items-center gap-3 text-[32px] font-medium font-roboto">

@@ -2,6 +2,7 @@ import { MapPin } from "lucide-react";
 import { Globe } from "lucide-react";
 import { Banknote } from "lucide-react";
 import { ChevronDown } from "lucide-react";
+import { FaGithub } from "react-icons/fa6";
 
 function Footer() {
   return (
@@ -48,7 +49,7 @@ function Footer() {
         may also be applied by our partners. You should then check prices and
         conditions with the services providers before booking.
       </p>
-      <div className="mt-8 pb-6 flex flex-wrap justify-center gap-6 text-sm text-blue-500 border-b border-gray-300">
+      <div className="mt-8 pb-3 flex flex-wrap justify-center gap-6 text-sm text-blue-500 border-gray-300">
         <a href="#" className="hover:underline">
           About
         </a>
@@ -66,6 +67,12 @@ function Footer() {
         </a>
         <a href="" className="hover:underline">
           Help Center
+        </a>
+      </div>
+      <div className="pb-6 flex items-center flex-wrap justify-center gap-2 text-sm text-blue-500 border-b border-gray-300">
+        <FaGithub size={18} />
+        <a href="https://github.com/eliptik1" className="hover:underline">
+          Developed by Eliptik1
         </a>
       </div>
       <div className="mt-8 mb-4 flex justify-center gap-6 text-sm text-blue-500">
