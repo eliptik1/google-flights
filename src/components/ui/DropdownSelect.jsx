@@ -37,7 +37,7 @@ const DEFAULT_VALUES = {
   sortBy: "top flights",
 };
 
-const DropdownSelect = ({ type }) => {
+const DropdownSelect = ({ type, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedClass, setSelectedClass] = useState(DEFAULT_VALUES[type]);
   const dropdownRef = useRef(null);
@@ -54,6 +54,7 @@ const DropdownSelect = ({ type }) => {
   }, []);
 
   const handleSelect = (option) => {
+    onChange(option.name);
     setSelectedClass(option.name);
     setIsOpen(false);
   };
