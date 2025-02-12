@@ -1,3 +1,5 @@
+import mapImage from "../../../public/staticmap.png";
+
 const HomePage = () => {
   const cities = ["İstanbul", "Cairo", "Tokyo", "Sydney"];
 
@@ -36,9 +38,6 @@ const HomePage = () => {
     },
   ];
 
-  const mapUrl =
-    "https://maps.googleapis.com/maps/api/staticmap?size=1058x312&key=AIzaSyCMXZJgNbwR_PUfsUlyKfRldqfOyQOEd_g&language=en-US&theme=light&scale=2&markers=scale:2%7Canchor:center%7Cicon:https://www.gstatic.com/flights/app/dot_pink_21.png%7C41.0082376,28.9783589&markers=scale:2%7Canchor:center%7Cicon:https://www.gstatic.com/flights/app/dot_blue_21.png%7C35.6764225,139.650027%7C48.8575475,2.3513765%7C41.8967068,12.4822025%7C25.2048493,55.2707828&style=feature:all%7Celement:labels%7Cvisibility:off&style=feature:poi%7Celement:all%7Cvisibility:off&style=feature:road%7Celement:all%7Cvisibility:off&style=feature:transit%7Celement:all%7Cvisibility:off";
-
   return (
     <div className="">
       <div className="mb-6">
@@ -60,7 +59,7 @@ const HomePage = () => {
         <div
           className="w-full h-64 rounded-2xl mb-6 relative bg-cover bg-center group cursor-pointer"
           style={{
-            backgroundImage: `url(${mapUrl})`,
+            backgroundImage: `url(${mapImage})`,
           }}
         >
           {/* Overlay div */}
