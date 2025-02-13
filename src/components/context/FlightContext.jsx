@@ -8,8 +8,13 @@ export const FlightProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useState(null);
 
   const [flightResults, setFlightResults] = useState(() => {
-    const savedResults = localStorage.getItem("flightResults");
-    return savedResults ? JSON.parse(savedResults) : [];
+    try {
+      const savedResults = localStorage.getItem("flightResults");
+      return savedResults ? JSON.parse(savedResults) : [];
+    } catch (error) {
+      console.error("Error loading flight results:", error);
+      return [];
+    }
   });
 
   const [selectedFlight, setSelectedFlight] = useState(() => {

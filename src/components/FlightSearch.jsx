@@ -31,6 +31,7 @@ export const FlightSearch = () => {
     if (location.pathname === "/") {
       setFlightResults([]);
       setSearchParams(null);
+      localStorage.removeItem("flightsSessionId");
     }
   }, [location.pathname]);
 
@@ -39,6 +40,7 @@ export const FlightSearch = () => {
 
     setLoading(true);
     setError(null);
+    setFlightResults([]);
 
     try {
       // 1. step: find airport code for "where from"
@@ -105,26 +107,62 @@ export const FlightSearch = () => {
       }
       console.log("searchResult:", searchResult);
 
+      //first save the data to local storage
+      localStorage.setItem(
+        "flightResults",
+        JSON.stringify(searchResult.data.itineraries)
+      );
+      localStorage.setItem("searchParams", JSON.stringify({ from, to, date }));
+      localStorage.setItem("flightsSessionId", searchResult.sessionId);
+
+      //then set the state
       setFlightResults(searchResult.data.itineraries);
       setSearchParams({ from, to, date });
-      localStorage.setItem("flightsSessionId", searchResult.sessionId);
+
+      await new Promise((resolve) => setTimeout(resolve, 100)); //add a small delay for better UX
       navigate("/flights");
     } catch (err) {
       setError(err);
       setFlightResults([]);
+      localStorage.removeItem("flightResults");
+      localStorage.removeItem("searchParams");
+      localStorage.removeItem("flightsSessionId");
     } finally {
       setLoading(false);
     }
   };
 
   const testSearch = async () => {
-    // Set test data
-    setFlightResults(testData.data.itineraries);
-    setSearchParams({ from, to, date });
+    setLoading(true);
+    setError(null);
+    setFlightResults([]);
 
-    // Store session ID
-    localStorage.setItem("flightsSessionId", testData.sessionId);
-    navigate("/flights");
+    try {
+      localStorage.setItem(
+        "flightResults",
+        JSON.stringify(testData.data.itineraries)
+      );
+      localStorage.setItem("searchParams", JSON.stringify({ from, to, date }));
+      localStorage.setItem("flightsSessionId", testData.sessionId);
+
+      setFlightResults(testData.data.itineraries);
+      setSearchParams({ from, to, date });
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      setFlightResults(testData.data.itineraries);
+      setSearchParams({ from, to, date });
+
+      navigate("/flights");
+    } catch (err) {
+      setError(err);
+      setFlightResults([]);
+      localStorage.removeItem("flightResults");
+      localStorage.removeItem("searchParams");
+      localStorage.removeItem("flightsSessionId");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -204,9 +242,9 @@ export const FlightSearch = () => {
                 <Search className="w-5 h-5" />
                 Search
               </button>
-              {/* <button onClick={testSearch} className="bg-blue-500 p-2">
+              <button onClick={testSearch} className="bg-blue-500 p-2">
                 Test Search
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
