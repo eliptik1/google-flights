@@ -242,9 +242,9 @@ export const FlightSearch = () => {
                 <Search className="w-5 h-5" />
                 Search
               </button>
-              <button onClick={testSearch} className="bg-blue-500 p-2">
+              {/* <button onClick={testSearch} className="bg-blue-500 p-2">
                 Test Search
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
